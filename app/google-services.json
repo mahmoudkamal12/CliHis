@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "596017022615",
+    "firebase_url": "https://clihis-84ecc.firebaseio.com",
+    "project_id": "clihis-84ecc",
+    "storage_bucket": "clihis-84ecc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596017022615:android:7a37dac0646030398a8bd2",
+        "android_client_info": {
+          "package_name": "com.example.clihis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596017022615-ocvd5qcjcv838mos3m9gthc8hml4s31e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAngu5i_1yzU7jAEI8FKyRT8qiNkAw8GQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596017022615-ocvd5qcjcv838mos3m9gthc8hml4s31e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

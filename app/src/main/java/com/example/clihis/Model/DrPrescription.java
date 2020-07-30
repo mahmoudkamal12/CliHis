@@ -1,38 +1,22 @@
 package com.example.clihis.Model;
 
-public class Prescription {
+public class DrPrescription {
 
     private String doctorName;
     private String prescription;
     private String diagnosis;
     private String date;
-    private String patientId;
+    private String patientName;
 
-    public Prescription() {
-    }
-
-    public Prescription(String doctorName, String prescription, String diagnosis, String date, String patientId) {
+    public DrPrescription(String doctorName, String prescription, String diagnosis, String date, String patientName) {
         this.doctorName = doctorName;
         this.prescription = prescription;
         this.diagnosis = diagnosis;
         this.date = date;
-        this.patientId = patientId;
+        this.patientName = patientName;
     }
 
-    public String getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public DrPrescription() {
     }
 
     public String getDoctorName() {
@@ -57,5 +41,21 @@ public class Prescription {
 
     public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 }

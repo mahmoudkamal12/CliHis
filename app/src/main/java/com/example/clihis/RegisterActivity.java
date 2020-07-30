@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,9 +28,14 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
     MaterialEditText username ,email,password;
+
+    RadioGroup radio_group;
+    RadioButton radioButton;
    Button btn_register;
 FirebaseAuth auth;
 DatabaseReference reference;
+String dr;
+
 
 
     @Override
@@ -45,6 +52,8 @@ DatabaseReference reference;
         email=findViewById(R.id.email);
         password=findViewById(R.id.password);
         btn_register=findViewById(R.id.btn_register);
+        radio_group=findViewById(R.id.radio_group);
+
 
         auth=FirebaseAuth.getInstance();
 
@@ -54,14 +63,16 @@ DatabaseReference reference;
                 String txt_username=username.getText().toString();
                 String txt_email=email.getText().toString();
                 String txt_password=password.getText().toString();
+                dr=radioButton.getText().toString();
 
-                if (TextUtils.isEmpty(txt_username)||TextUtils.isEmpty(txt_email)||TextUtils.isEmpty(txt_password)){
+                if (TextUtils.isEmpty(txt_username)||TextUtils.isEmpty(txt_email)||TextUtils.isEmpty(txt_password)
+                        ||TextUtils.isEmpty(dr)){
                     Toast.makeText(RegisterActivity.this, "all fields are required", Toast.LENGTH_SHORT).show();
                 }else if (txt_password.length()<6){
                     Toast.makeText(RegisterActivity.this, "password must be at least 6 characters"
                             , Toast.LENGTH_SHORT).show();
                 }else {
-                    register(txt_username,txt_email,txt_password);
+                    register(txt_username,txt_email,txt_password,dr);
                 }
 
             }
@@ -69,7 +80,7 @@ DatabaseReference reference;
 
     }
 
-    private void register(final String username, final String email, final String password){
+    private void register(final String username, final String email, final String password, final String dr){
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -84,6 +95,8 @@ DatabaseReference reference;
                             hashMap.put("userId",userId);
                             hashMap.put("username",username);
                             hashMap.put("imageURL","default");
+                            hashMap.put("dr",dr);
+
 
 
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -103,6 +116,12 @@ DatabaseReference reference;
                         }
                     }
                 });
+
+    }
+
+    public void rbClick(View view) {
+        int radioButtonId=radio_group.getCheckedRadioButtonId();
+        radioButton=findViewById(radioButtonId);
 
     }
 }

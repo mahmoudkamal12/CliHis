@@ -13,7 +13,9 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user=dataSnapshot.getValue(User.class);
                 username.setText(user.getUsername());
+
+
+
                 if (user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 }else {
@@ -98,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu,menu);
+        MenuInflater inflater =getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -111,12 +118,44 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,StartActivity.class));
                 finish();
                 return true;
-            case R.id.prescription:
-                Intent intent=new Intent(MainActivity.this,PrescriptionActivity.class);
-                startActivity(intent);
+
+            case R.id.qr_code:
+                Intent intent1=new Intent(MainActivity.this,QRActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.scan:
+
+                Intent intent2=new Intent(MainActivity.this,ScanActivity.class);
+                startActivity(intent2);
+                return true;
+
+
         }
         return false;
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        reference= FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user=snapshot.getValue(User.class);
+                if (user.getDr().equals("NO")){
+                    menu.removeItem(R.id.scan);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     class ViewPagerAdaptor extends FragmentPagerAdapter{
 
         ArrayList <Fragment> fragments;
